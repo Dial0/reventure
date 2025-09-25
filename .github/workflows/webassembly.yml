@@ -18,6 +18,8 @@ jobs:
   build:
     permissions:
       contents: write       # for actions/upload-release-asset to upload release asset
+      pages: write
+      id-token: write
     runs-on: windows-latest
     
     env:
