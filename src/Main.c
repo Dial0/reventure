@@ -286,15 +286,17 @@ typedef struct State{
 
 void UpdateDrawFrame(void* v_state) {
 
-    triColEvent Col = sphereTriCol(v_state.ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
-    UpdateCamera(&v_state->camera, CAMERA_THIRD_PERSON);
+    State* state = (State*)v_state;
 
-    Vector3 ColTri[3] = { v_state->ColTri[0],v_state->ColTri[1],v_state->ColTri[2] };
+    triColEvent Col = sphereTriCol(state->ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
+    UpdateCamera(&state->camera, CAMERA_THIRD_PERSON);
+
+    Vector3 ColTri[3] = { state->ColTri[0],state->ColTri[1],state->ColTri[2] };
     
     BeginDrawing();
 
         ClearBackground(LIGHTGRAY);
-        BeginMode3D(v_state->camera);
+        BeginMode3D(state->camera);
 
             DrawGrid(10, 1.0f);
 
@@ -311,8 +313,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 rlDrawRenderBatchActive();
                 rlDisableDepthTest();
-                DrawSphere(Col.newSpherePos, 1.0f, v_state->newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state->mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, state->newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
             }
             if (Col.type == EDGE) {
 
@@ -347,8 +349,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 DrawTriangle3D(Col.planePoints[0], Col.planePoints[1], Col.planePoints[2], Fade(YELLOW, 0.3f));
                 DrawTriangle3D(Col.planePoints[2], Col.planePoints[3], Col.planePoints[0], Fade(YELLOW, 0.3f));
-                DrawSphere(Col.newSpherePos, 1.0f, v_state->newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state->mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, state->newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
             }
             if (Col.type == SURFACE){
                 rlEnableDepthTest();
