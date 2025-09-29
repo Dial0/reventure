@@ -2,6 +2,11 @@
 #include "rlgl.h"
 #include "raymath.h"
 
+#if defined(PLATFORM_WEB)
+    #define CUSTOM_MODAL_DIALOGS            // Force custom modal dialogs usage
+    #include <emscripten/emscripten.h>      // Emscripten library - LLVM to JavaScript compiler
+#endif
+
 typedef enum {
     NONE = 0, SURFACE, EDGE, POINT, INVALID
 } colType;
@@ -368,8 +373,8 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
     State state;
-
-    state.camera = { { 0.0f, 10.0f, 10.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 45.0f, 0 };
+    Camera tmp_camera = { { 0.0f, 10.0f, 10.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 45.0f, 0 };
+    state.camera = tmp_camera;
 
     state.mainSphereColor = Fade(BLUE, 0.3f);
     state.newSphereColor = Fade(PURPLE, 0.3f);
