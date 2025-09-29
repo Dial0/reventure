@@ -272,22 +272,22 @@ triColEvent sphereTriCol(Vector3* Tri, Vector3 spherePos, Vector3 sphereDir, flo
 }
 
 
-typedef struct state{
+typedef struct State{
     Camera camera;
     Color mainSphereColor;
     Color newSphereColor;
     Vector3* ColTri;
-} state;
+} State;
 
 void UpdateDrawFrame(void* v_state) {
 
-    triColEvent Col = sphereTriCol(state.ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
-    UpdateCamera(&state.camera, CAMERA_THIRD_PERSON);
+    triColEvent Col = sphereTriCol(v_state.ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
+    UpdateCamera(&v_state.camera, CAMERA_THIRD_PERSON);
     
     BeginDrawing();
 
         ClearBackground(LIGHTGRAY);
-        BeginMode3D(state.camera);
+        BeginMode3D(v_state.camera);
 
             DrawGrid(10, 1.0f);
 
@@ -304,8 +304,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 rlDrawRenderBatchActive();
                 rlDisableDepthTest();
-                DrawSphere(Col.newSpherePos, 1.0f, state.newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state.mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, v_state.newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state.mainSphereColor);
             }
             if (Col.type == EDGE) {
 
@@ -340,8 +340,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 DrawTriangle3D(Col.planePoints[0], Col.planePoints[1], Col.planePoints[2], Fade(YELLOW, 0.3f));
                 DrawTriangle3D(Col.planePoints[2], Col.planePoints[3], Col.planePoints[0], Fade(YELLOW, 0.3f));
-                DrawSphere(Col.newSpherePos, 1.0f, state.newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state.mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, v_state.newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state.mainSphereColor);
             }
             if (Col.type == SURFACE){
                 rlEnableDepthTest();
@@ -366,6 +366,9 @@ int main(void)
     const int screenHeight = 1080;
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
+    State state;
+
     state.camera = { { 0.0f, 10.0f, 10.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 45.0f, 0 };
 
     state.mainSphereColor = Fade(BLUE, 0.3f);
