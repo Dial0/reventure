@@ -287,12 +287,14 @@ typedef struct State{
 void UpdateDrawFrame(void* v_state) {
 
     triColEvent Col = sphereTriCol(v_state.ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
-    UpdateCamera(&v_state.camera, CAMERA_THIRD_PERSON);
+    UpdateCamera(&v_state->camera, CAMERA_THIRD_PERSON);
+
+    Vector3 ColTri[3] = { v_state->ColTri[0],v_state->ColTri[1],v_state->ColTri[2] };
     
     BeginDrawing();
 
         ClearBackground(LIGHTGRAY);
-        BeginMode3D(v_state.camera);
+        BeginMode3D(v_state->camera);
 
             DrawGrid(10, 1.0f);
 
@@ -309,8 +311,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 rlDrawRenderBatchActive();
                 rlDisableDepthTest();
-                DrawSphere(Col.newSpherePos, 1.0f, v_state.newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state.mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, v_state->newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state->mainSphereColor);
             }
             if (Col.type == EDGE) {
 
@@ -345,8 +347,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 DrawTriangle3D(Col.planePoints[0], Col.planePoints[1], Col.planePoints[2], Fade(YELLOW, 0.3f));
                 DrawTriangle3D(Col.planePoints[2], Col.planePoints[3], Col.planePoints[0], Fade(YELLOW, 0.3f));
-                DrawSphere(Col.newSpherePos, 1.0f, v_state.newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state.mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, v_state->newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, v_state->mainSphereColor);
             }
             if (Col.type == SURFACE){
                 rlEnableDepthTest();
@@ -387,9 +389,9 @@ int main(void)
     //Vector3 ColTri[3] = { { -0.091649f, 1.29442f, 0.310159f },{ 0.497118f, 0.976186f, 1.65942f },{ 0.497118f, -0.579771f, 0.897624f } };
 
     //EDGE HARD
-    Vector3 dataColTri[3] = { { -0.681478f, -0.158351f, 0.287404f },{ 0.254617f, 0.976186f, 2.51794f },{ 0.859759f, 0.335812f, 1.83313f } };
+    Vector3 tmpColTri[3] = { { -0.681478f, -0.158351f, 0.287404f },{ 0.254617f, 0.976186f, 2.51794f },{ 0.859759f, 0.335812f, 1.83313f } };
 
-    state.ColTri = dataColTri;
+    state.ColTri = tmpColTri;
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
