@@ -32,8 +32,6 @@ PLATFORM              ?= PLATFORM_DESKTOP
 PROJECT_NAME          ?= raylib_game
 PROJECT_VERSION       ?= 1.0
 PROJECT_BUILD_PATH    ?= .
-PROJECT_SOURCE_FILES  ?= \
-    main.c \
 
 # raylib library variables
 RAYLIB_SRC_PATH       ?= ../../raylib/src
