@@ -272,7 +272,7 @@ triColEvent sphereTriCol(Vector3* Tri, Vector3 spherePos, Vector3 sphereDir, flo
 }
 
 
-typedef struct {
+typedef struct state{
     Camera camera;
     Color mainSphereColor;
     Color newSphereColor;
@@ -281,13 +281,13 @@ typedef struct {
 
 void UpdateDrawFrame(void* v_state) {
 
-    triColEvent Col = sphereTriCol(ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
-    UpdateCamera(&camera, CAMERA_THIRD_PERSON);
+    triColEvent Col = sphereTriCol(state.ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
+    UpdateCamera(&state.camera, CAMERA_THIRD_PERSON);
     
     BeginDrawing();
 
         ClearBackground(LIGHTGRAY);
-        BeginMode3D(camera);
+        BeginMode3D(state.camera);
 
             DrawGrid(10, 1.0f);
 
@@ -304,8 +304,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 rlDrawRenderBatchActive();
                 rlDisableDepthTest();
-                DrawSphere(Col.newSpherePos, 1.0f, newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, state.newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state.mainSphereColor);
             }
             if (Col.type == EDGE) {
 
@@ -340,8 +340,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 DrawTriangle3D(Col.planePoints[0], Col.planePoints[1], Col.planePoints[2], Fade(YELLOW, 0.3f));
                 DrawTriangle3D(Col.planePoints[2], Col.planePoints[3], Col.planePoints[0], Fade(YELLOW, 0.3f));
-                DrawSphere(Col.newSpherePos, 1.0f, newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, mainSphereColor);
+                DrawSphere(Col.newSpherePos, 1.0f, state.newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state.mainSphereColor);
             }
             if (Col.type == SURFACE){
                 rlEnableDepthTest();
