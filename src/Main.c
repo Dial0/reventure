@@ -354,7 +354,8 @@ void UpdateDrawFrame(void* v_state) {
 
                 float col_length = Vector3Distance(Col.newSpherePos,Col.newEdgePoint);
 
-                DrawText(TextFormat("New Sphere Pos Dist to Col Point: %f", col_length), 200, 80, 20, RED);
+                //DrawText(TextFormat("New Sphere Pos Dist to Col Point: %f", col_length), 80, 80, 20, RED);
+                DrawText("test", 80, 80, 20, RED);
 
             }
             if (Col.type == SURFACE){
