@@ -292,6 +292,8 @@ void UpdateDrawFrame(void* v_state) {
     UpdateCamera(&state->camera, CAMERA_THIRD_PERSON);
 
     Vector3 ColTri[3] = { state->ColTri[0],state->ColTri[1],state->ColTri[2] };
+
+    float col_length;
     
     BeginDrawing();
 
@@ -352,9 +354,9 @@ void UpdateDrawFrame(void* v_state) {
                 DrawSphere(Col.newSpherePos, 1.0f, state->newSphereColor);
                 DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
 
-                float col_length = Vector3Distance(Col.newSpherePos,Col.newEdgePoint);
+                col_length = Vector3Distance(Col.newSpherePos,Col.newEdgePoint);
 
-                //DrawText(TextFormat("New Sphere Pos Dist to Col Point: %f", col_length), 80, 80, 20, RED);
+                
                 
 
             }
@@ -366,7 +368,7 @@ void UpdateDrawFrame(void* v_state) {
         //DrawTriangle3D(v1, v2, v3, RED);
         EndMode3D();
 
-        DrawText("test", 80, 80, 20, RED);
+        DrawText(TextFormat("New Sphere Pos Dist to Col Point: %f", col_length), 80, 80, 20, RED);
 
         //DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
