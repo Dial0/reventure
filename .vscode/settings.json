@@ -1,5 +1,16 @@
 {
     "files.associations": {
-        "locale": "c"
+        "locale": "c",
+        "__locale": "c",
+        "string": "c",
+        "string_view": "c",
+        "__bit_reference": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "array": "c",
+        "initializer_list": "c",
+        "ios": "c",
+        "unordered_map": "c",
+        "vector": "c"
     }
 }

@@ -351,6 +351,11 @@ void UpdateDrawFrame(void* v_state) {
                 DrawTriangle3D(Col.planePoints[2], Col.planePoints[3], Col.planePoints[0], Fade(YELLOW, 0.3f));
                 DrawSphere(Col.newSpherePos, 1.0f, state->newSphereColor);
                 DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
+
+                float col_length = Vector3Distance(Col.newSpherePos,Col.newEdgePoint);
+
+                DrawText(TextFormat("New Sphere Pos Dist to Col Point: %f", col_length), 200, 80, 20, RED);
+
             }
             if (Col.type == SURFACE){
                 rlEnableDepthTest();
