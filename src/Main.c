@@ -350,7 +350,7 @@ void UpdateDrawFrame(void* v_state) {
                 DrawTriangle3D(Col.planePoints[0], Col.planePoints[1], Col.planePoints[2], Fade(YELLOW, 0.3f));
                 DrawTriangle3D(Col.planePoints[2], Col.planePoints[3], Col.planePoints[0], Fade(YELLOW, 0.3f));
                 DrawSphere(Col.newSpherePos, 1.0f, state->newSphereColor);
-                //DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
             }
             if (Col.type == SURFACE){
                 rlEnableDepthTest();
@@ -381,7 +381,7 @@ int main(void)
     state.camera = tmp_camera;
 
     state.mainSphereColor = Fade(BLUE, 0.3f);
-    state.newSphereColor = Fade(PURPLE, 0.9f);
+    state.newSphereColor = Fade(PURPLE, 0.3f);
 
     //POINT
     //Vector3 ColTri[3] = { { -0.091649f, -0.023814f, 0.851113f },{ 0.497118f, 0.976186f, 1.65942f },{ 0.497118f, -0.023814f, 1.65942f } };
