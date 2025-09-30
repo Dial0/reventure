@@ -355,7 +355,7 @@ void UpdateDrawFrame(void* v_state) {
                 float col_length = Vector3Distance(Col.newSpherePos,Col.newEdgePoint);
 
                 //DrawText(TextFormat("New Sphere Pos Dist to Col Point: %f", col_length), 80, 80, 20, RED);
-                DrawText("test", 80, 80, 20, RED);
+                
 
             }
             if (Col.type == SURFACE){
@@ -365,6 +365,8 @@ void UpdateDrawFrame(void* v_state) {
         
         //DrawTriangle3D(v1, v2, v3, RED);
         EndMode3D();
+
+        DrawText("test", 80, 80, 20, RED);
 
         //DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
