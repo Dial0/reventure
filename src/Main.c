@@ -212,8 +212,6 @@ triColEvent sphereTriCol(Vector3* Tri, Vector3 spherePos, Vector3 sphereDir, flo
         RayCollision shellIntersection = GetRayCollisionSphere(pointShell, spherePos, 1.0f);
         result.shellPoint = shellIntersection.point;
         Vector3 negativeSphereDir = Vector3Subtract((struct Vector3) { 0.0f, 0.0f, 0.0f }, sphereDir);
-        Vector3 backstep = Vector3Scale(negativeSphereDir, shellIntersection.distance);
-        result.newSpherePos = Vector3Add(spherePos, backstep);
 
         result.colPlaneTangent = edgeTangent;
 
