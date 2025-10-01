@@ -240,6 +240,9 @@ triColEvent sphereTriCol(Vector3* Tri, Vector3 spherePos, Vector3 sphereDir, flo
         result.newEdgePoint = ep;
         result.newShellPoint = newShellIntersection.point;
 
+        Vector3 backstep = Vector3Scale(negativeSphereDir, newShellIntersection.distance);
+        result.newSpherePos = Vector3Add(spherePos, backstep);
+
 
         return result;
     }
