@@ -29,7 +29,7 @@ typedef struct {
     Vector3 newShellPoint;
 
     //surface
-    
+    Vector3 newTriClosestPoint;
 
 } triColEvent;
 
@@ -261,15 +261,20 @@ triColEvent sphereTriCol(Vector3* Tri, Vector3 spherePos, Vector3 sphereDir, flo
                         shellcol.point.y + colPlaneIntTime * negativeSphereDir.y,
                         shellcol.point.z + colPlaneIntTime * negativeSphereDir.z };
 
-        
+        result.colPlaneIntPoint = colPlaneIntersectionPoint;
+
         closestPointOnTri newClosestPoint; 
         newClosestPoint = closestPointTriangle(colPlaneIntersectionPoint, p1, p2, p3);
 
         Ray newPointShell = { newClosestPoint.pos, sphereDir };
         RayCollision newShellIntersection = GetRayCollisionSphere(newPointShell, spherePos, 1.0f);
 
-        //result.newClosestPoint = newPointShell;
+        result.newTriClosestPoint = newClosestPoint.pos;
         result.newShellPoint = newShellIntersection.point;
+
+        Vector3 newbackstep = Vector3Scale(negativeSphereDir, newShellIntersection.distance);
+        result.newSpherePos = Vector3Add(spherePos, newbackstep);
+
         return result;
     }
 
@@ -363,6 +368,34 @@ void UpdateDrawFrame(void* v_state) {
             }
             if (Col.type == SURFACE){
                 rlEnableDepthTest();
+
+                //sphere movement Vector
+                DrawArrow((struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 0.01f, GREEN);
+                //collision plane
+                DrawTriangle3D(ColTri[0], ColTri[1], ColTri[2], GRAY);
+                //sphere origin
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 0.01f, RED);
+                //initial closest point
+                DrawSphere(Col.closestPoint, 0.02f, ORANGE);
+
+                //vector through closest point to shell of sphere, also shows the collision plane normal
+                DrawArrow((struct Vector3) { 0.0f, 0.0f, 0.0f }, Col.colPlaneShell, 0.01f, ORANGE);
+
+                //vector from sphere shell point back to the collision plane
+                DrawArrow(Col.colPlaneShell, Col.colPlaneIntPoint, 0.01f, ORANGE);
+                //point on collision plane that is intersected
+                DrawSphere(Col.colPlaneIntPoint, 0.01f, GREEN);
+
+                //if the point on the collision plane is not inside the triangle still, then we find the new point and mark it
+                DrawSphere(Col.newTriClosestPoint, 0.01f, PINK);
+
+                //vector from new triangle collison point to sphere shell in sphere movement dir
+                DrawArrow(Col.newTriClosestPoint, Col.newShellPoint, 0.01f, PURPLE);
+
+                //backstep new sphere position by the distance of the new tri col point to sphere shell
+                DrawSphere(Col.newSpherePos, 1.0f, state->newSphereColor);
+                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
+
             }
 
         
