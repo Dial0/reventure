@@ -302,11 +302,11 @@ void UpdateDrawFrame(void* v_state) {
     float colPlaneIntTime = 0.0f;
     rayPlaneIntersect(sphere_pos, spere_dir, plane_origin, plane_normal, &colPlaneIntTime);
 
-    Vector3 colPlaneIntersectionPoint = { sphere_pos.point.x + colPlaneIntTime * spere_dir.x,
-                        sphere_pos.point.y + colPlaneIntTime * spere_dir.y,
-                        sphere_pos.point.z + colPlaneIntTime * spere_dir.z };
+    Vector3 colPlaneIntersectionPoint = { sphere_pos.x + colPlaneIntTime * spere_dir.x,
+                        sphere_pos.y + colPlaneIntTime * spere_dir.y,
+                        sphere_pos.z + colPlaneIntTime * spere_dir.z };
 
-    Vector3 newSpherePos = centerColPoint;
+    Vector3 newSpherePos = colPlaneIntersectionPoint;
 
     triColEvent Col = sphereTriCol(state->ColTri, newSpherePos, spere_dir, 1.0f);
     UpdateCamera(&state->camera, CAMERA_THIRD_PERSON);
