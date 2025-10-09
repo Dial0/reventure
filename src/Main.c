@@ -300,7 +300,11 @@ void UpdateDrawFrame(void* v_state) {
     Vector3 plane_normal = getTriangleNormal(state->ColTri[0],state->ColTri[1],state->ColTri[2]);
 
     float colPlaneIntTime = 0.0f;
-    Vector3 centerColPoint = rayPlaneIntersect(sphere_pos, spere_dir, plane_origin, plane_normal, &colPlaneIntTime);
+    rayPlaneIntersect(sphere_pos, spere_dir, plane_origin, plane_normal, &colPlaneIntTime);
+
+    Vector3 colPlaneIntersectionPoint = { sphere_pos.point.x + colPlaneIntTime * spere_dir.x,
+                        sphere_pos.point.y + colPlaneIntTime * spere_dir.y,
+                        sphere_pos.point.z + colPlaneIntTime * spere_dir.z };
 
     Vector3 newSpherePos = centerColPoint;
 
