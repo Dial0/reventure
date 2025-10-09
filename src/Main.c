@@ -299,7 +299,7 @@ void UpdateDrawFrame(void* v_state) {
     Vector3 plane_origin = state->ColTri[0];
     Vector3 plane_normal = getTriangleNormal(state->ColTri[0],state->ColTri[1],state->ColTri[2]);
 
-    Vector3 centerColPoint = rayPlaneIntersect(sphere_pos, spere_dir, plane_origin, plane_normal);
+    Vector3 centerColPoint = rayPlaneIntersect(sphere_pos, spere_dir, plane_origin, plane_normal, 1.0f);
 
     Vector3 newSpherePos = centerColPoint;
 
