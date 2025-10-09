@@ -294,7 +294,16 @@ void UpdateDrawFrame(void* v_state) {
 
     State* state = (State*)v_state;
 
-    triColEvent Col = sphereTriCol(state->ColTri, (struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 1.0f);
+    Vector3 sphere_pos = { 0.0f, 0.0f, 0.0f };
+    Vector3 spere_dir = { 0.0f, 0.0f, 1.0f };
+    Vector3 plane_origin = state->ColTri[0];
+    Vector3 plane_normal = getTriangleNormal(state->ColTri[0],state->ColTri[1],state->ColTri[2]);
+
+    Vector3 centerColPoint = rayPlaneIntersect(sphere_pos, spere_dir, plane_origin, plane_normal);
+
+    Vector3 newSpherePos = centerColPoint;
+
+    triColEvent Col = sphereTriCol(state->ColTri, newSpherePos, spere_dir, 1.0f);
     UpdateCamera(&state->camera, CAMERA_THIRD_PERSON);
 
     Vector3 ColTri[3] = { state->ColTri[0],state->ColTri[1],state->ColTri[2] };
