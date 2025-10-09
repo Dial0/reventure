@@ -306,9 +306,9 @@ void UpdateDrawFrame(void* v_state) {
                         sphere_pos.y + colPlaneIntTime * spere_dir.y,
                         sphere_pos.z + colPlaneIntTime * spere_dir.z };
 
-    Vector3 newSpherePos = colPlaneIntersectionPoint;
+    Vector3 sphere_pos = colPlaneIntersectionPoint;
 
-    triColEvent Col = sphereTriCol(state->ColTri, newSpherePos, spere_dir, 1.0f);
+    triColEvent Col = sphereTriCol(state->ColTri, sphere_pos, spere_dir, 1.0f);
     UpdateCamera(&state->camera, CAMERA_THIRD_PERSON);
 
     Vector3 ColTri[3] = { state->ColTri[0],state->ColTri[1],state->ColTri[2] };
