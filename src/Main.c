@@ -343,16 +343,16 @@ void UpdateDrawFrame(void* v_state) {
                 rlEnableDepthTest();
 
                 //sphere movement Vector
-                DrawArrow((struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 0.01f, GREEN);
+                DrawArrow(sphere_pos, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 0.01f, GREEN);
                 //collision plane
                 DrawTriangle3D(ColTri[0], ColTri[1], ColTri[2], GRAY);
                 //sphere origin
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 0.01f, RED);
+                DrawSphere(sphere_pos, 0.01f, RED);
                 //initial closest point
                 DrawSphere(Col.closestPoint, 0.02f, ORANGE);
 
                 //vector through closest point to shell of sphere, also shows the collision plane normal
-                DrawArrow((struct Vector3) { 0.0f, 0.0f, 0.0f }, Col.colPlaneShell, 0.01f, ORANGE);
+                DrawArrow(sphere_pos, Col.colPlaneShell, 0.01f, ORANGE);
                 //edge normal
                 DrawArrow(Col.ep1, Col.ep2, 0.01f, PURPLE);
                 //plane tangent
@@ -384,16 +384,16 @@ void UpdateDrawFrame(void* v_state) {
                 rlEnableDepthTest();
 
                 //sphere movement Vector
-                DrawArrow((struct Vector3) { 0.0f, 0.0f, 0.0f }, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 0.01f, GREEN);
+                DrawArrow(sphere_pos, (struct Vector3) { 0.0f, 0.0f, 1.0f }, 0.01f, GREEN);
                 //collision plane
                 DrawTriangle3D(ColTri[0], ColTri[1], ColTri[2], GRAY);
                 //sphere origin
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 0.01f, RED);
+                DrawSphere(sphere_pos, 0.01f, RED);
                 //initial closest point
                 DrawSphere(Col.closestPoint, 0.02f, ORANGE);
 
                 //vector through closest point to shell of sphere, also shows the collision plane normal
-                DrawArrow((struct Vector3) { 0.0f, 0.0f, 0.0f }, Col.colPlaneShell, 0.01f, ORANGE);
+                DrawArrow(sphere_pos, Col.colPlaneShell, 0.01f, ORANGE);
 
                 //vector from sphere shell point back to the collision plane
                 DrawArrow(Col.colPlaneShell, Col.colPlaneIntPoint, 0.01f, ORANGE);
@@ -408,7 +408,7 @@ void UpdateDrawFrame(void* v_state) {
 
                 //backstep new sphere position by the distance of the new tri col point to sphere shell
                 DrawSphere(Col.newSpherePos, 1.0f, state->newSphereColor);
-                DrawSphere((struct Vector3) { 0.0f, 0.0f, 0.0f }, 1.0f, state->mainSphereColor);
+                DrawSphere(sphere_pos, 1.0f, state->mainSphereColor);
 
             }
 
